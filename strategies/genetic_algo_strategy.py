@@ -10,7 +10,7 @@ class GeneticAlgoStrategy:
     My own custom implementation of genetic algorithms for portfolio
     """
 
-    def __init__(self):
+    def __init__(self, random_seed=None):
         self.name = "Genetic Algo"
         self.initial_genes = 100
         self.selection_top = 10
@@ -20,6 +20,9 @@ class GeneticAlgoStrategy:
         self.genes_in_each_iteration = 250
         self.iterations = 100
         self.crossover_probability = 0.1
+        self.random_seed = random_seed
+        if random_seed is not None:
+            np.random.seed(random_seed)
 
     def generate_portfolio(self, **kwargs):
         kwargs = dotdict(kwargs)

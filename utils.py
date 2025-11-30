@@ -13,6 +13,14 @@ class dotdict(dict):
     __delattr__ = dict.__delitem__
 
 def normalize_weights(w):
+    """
+    Normalize portfolio weights so that:
+    - Positive weights sum to 1 (or their portion of total)
+    - Negative weights sum to -1 (or their portion of total)
+
+    Handles edge cases where all weights are positive or all negative.
+    """
+    w = np.array(w, dtype=float)  # Ensure we're working with floats
     pos_sum = 0
     neg_sum = 0
     for i in w:
@@ -21,11 +29,16 @@ def normalize_weights(w):
         else:
             neg_sum += i
     neg_sum = abs(neg_sum)
+
     for i in range(len(w)):
         if w[i] > 0:
-            w[i] /= pos_sum
-        else:
-            w[i] /= neg_sum
+            if pos_sum > 0:
+                w[i] /= pos_sum
+            # If pos_sum is 0, weight is already 0 (since w[i] > 0 is False)
+        elif w[i] < 0:
+            if neg_sum > 0:
+                w[i] /= neg_sum
+        # If w[i] == 0, leave it as 0
     return w
 
 

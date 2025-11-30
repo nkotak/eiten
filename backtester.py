@@ -40,7 +40,7 @@ class BackTester:
     def plot_test(**kwargs):
         # Styling for plots
         kwargs = dotdict(kwargs)
-        plt.style.use('seaborn-white')
+        plt.style.use('ggplot')
         plt.rc('grid', linestyle="dotted", color='#a0a0a0')
         plt.rcParams['figure.figsize'] = (18, 6)
         plt.rcParams['axes.edgecolor'] = "#04383F"

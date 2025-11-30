@@ -25,7 +25,8 @@ def main():
     # Get arguments
     args = argParser.parse_args()
 
-    
+    # Validate arguments
+    ArgChecker(args)
 
     # Run strategies
     eiten = Eiten(args)

@@ -101,6 +101,7 @@ class Eiten:
                 cov_matrix=cov_matrix, p_number=self.args.eigen_portfolio_number,
                 pred_returns=pred_returns.T,
                 perc_returns=perc_returns,
+                sample_returns=perc_returns,  # For genetic algorithm compatibility
                 long_only=self.args.only_long)
             self.portfolios[name] = weights
         self.portfolios = pd.DataFrame.from_dict(self.portfolios)
@@ -127,8 +128,8 @@ class Eiten:
         """
         Draw plots
         """
-        # Styling for plots
-        plt.style.use('seaborn-white')
+        # Styling for plots (use ggplot as seaborn-white is deprecated in matplotlib 3.6+)
+        plt.style.use('ggplot')
         plt.rc('grid', linestyle="dotted", color='#a0a0a0')
         plt.rcParams['axes.edgecolor'] = "#04383F"
         plt.rcParams['axes.titlesize'] = "large"
