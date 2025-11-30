@@ -45,7 +45,7 @@ class DataEngine:
 
     def get_most_frequent_count(self, input_list):
         counter = collections.Counter(input_list)
-        return list(counter.keys())[0]
+        return counter.most_common(1)[0][0]
 
     def _split_data(self, data):
         if self.args.is_test:
