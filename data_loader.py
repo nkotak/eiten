@@ -45,7 +45,7 @@ class DataEngine:
 
     def get_most_frequent_count(self, input_list):
         counter = collections.Counter(input_list)
-        return list(counter.keys())[0]
+        return counter.most_common(1)[0][0]
 
     def _split_data(self, data):
         if self.args.is_test:
@@ -68,14 +68,15 @@ class DataEngine:
         symbol = self._format_symbol(symbol_raw)
         future_prices = None
         historical_prices = None
-        # Find period
+        # Find period based on data granularity
         if self.args.data_granularity_minutes == 1:
             period = "7d"
-            interval = str(self.args.data_granularity_minutes) + "m"
-        if self.args.data_granularity_minutes == 3600:
+            interval = "1m"
+        elif self.args.data_granularity_minutes == 3600:
             period = "5y"
             interval = "1d"
         else:
+            # For 5, 10, 15, 30, 60 minute intervals
             period = "30d"
             interval = str(self.args.data_granularity_minutes) + "m"
 
